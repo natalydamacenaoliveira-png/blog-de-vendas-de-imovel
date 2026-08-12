@@ -3,122 +3,324 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog de Imóveis</title>
-  
+  <title>Portal Imobiliário - Encontre seu Imóvel</title>
+
   <style>
+    /* Variáveis de Tema (Claro / Escuro) */
     :root {
-      --bg-color: #f4f6f8;
+      --bg-color: #f8f9fa;
       --card-bg: #ffffff;
-      --text-color: #1a1a1a;
-      --accent-color: #0066cc;
-      --border-color: #e0e0e0;
+      --text-color: #212529;
+      --text-muted: #6c757d;
+      --accent-color: #0d6efd;
+      --accent-hover: #0b5ed7;
+      --border-color: #e9ecef;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
     [data-theme="dark"] {
       --bg-color: #121212;
       --card-bg: #1e1e1e;
-      --text-color: #e0e0e0;
-      --accent-color: #4d94ff;
-      --border-color: #333333;
+      --text-color: #f8f9fa;
+      --text-muted: #a0a0a0;
+      --accent-color: #3d8bfd;
+      --accent-hover: #6ea8fe;
+      --border-color: #2d2d2d;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Reset e Tipografia Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 16px;
       line-height: 1.6;
-      margin: 0;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    /* Layout e Espaçamento Lateral */
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 1.5rem;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.25rem 0;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color 0.3s ease;
     }
 
     .header-content {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+
+    /* Botão de Alternar Tema */
+    .btn-theme {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-theme:hover {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    /* Seção Principal e Grid de Postagens */
+    main {
+      padding: 2.5rem 0;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
     }
 
     .posts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
-      margin-top: 2rem;
     }
 
+    /* Cards de Imóveis */
     .card {
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
+      box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background-color: var(--border-color);
     }
 
     .card img {
       width: 100%;
-      height: 200px;
+      height: 100%;
       object-fit: cover;
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background-color: var(--accent-color);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
     }
 
     .card-body {
       padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
     }
 
     .price {
-      display: inline-block;
-      font-size: 1.25rem;
-      font-weight: bold;
+      font-size: 1.3rem;
+      font-weight: 800;
       color: var(--accent-color);
-      margin-top: 1rem;
     }
 
-    #theme-toggle {
+    .btn-details {
+      background-color: var(--accent-color);
+      color: #ffffff;
+      text-decoration: none;
       padding: 0.5rem 1rem;
-      cursor: pointer;
-      border-radius: 4px;
-      border: 1px solid var(--border-color);
-      background-color: var(--card-bg);
-      color: var(--text-color);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-details:hover {
+      background-color: var(--accent-hover);
     }
   </style>
 </head>
 <body>
 
-  <header class="container header-content">
-    <h1>Imóveis em Destaque</h1>
-    <button id="theme-toggle" type="button" aria-label="Alternar tema">Alternar Tema</button>
+  <!-- Cabeçalho -->
+  <header>
+    <div class="container header-content">
+      <div class="logo">🏠 Imóveis Prime</div>
+      <button id="theme-toggle" class="btn-theme" type="button" aria-label="Alternar modo claro e escuro">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-text">Modo Escuro</span>
+      </button>
+    </div>
   </header>
 
+  <!-- Conteúdo Principal -->
   <main class="container">
+    <h2 class="section-title">Lançamentos e Oportunidades</h2>
+
     <section class="posts-grid">
 
+      <!-- Imóvel 1 -->
       <article class="card">
-        <img src="https://via.placeholder.com/400x250" alt="Apartamento moderno com varanda gourmet" loading="lazy">
+        <div class="card-image-wrapper">
+          <span class="badge">Venda</span>
+          <img src="http://googleusercontent.com/image_collection/image_retrieval/13214756094084282411_0" alt="Apartamento moderno com varanda gourmet" loading="lazy">
+        </div>
         <div class="card-body">
-          <h2>Apartamento 3 Quartos - Centro</h2>
-          <p>Excelente localização, varanda gourmet, 2 vagas na garagem e área de lazer completa.</p>
-          <span class="price">R$ 450.000</span>
+          <h3 class="card-title">Apartamento 3 Quartos - Centro</h3>
+          <p class="card-text">Excelente localização no centro da cidade, varanda gourmet integrável, 2 vagas na garagem e área de lazer completa no condomínio.</p>
+          <div class="card-footer">
+            <span class="price">R$ 450.000</span>
+            <a href="#" class="btn-details">Ver Mais</a>
+          </div>
         </div>
       </article>
 
+      <!-- Imóvel 2 -->
       <article class="card">
-        <img src="https://via.placeholder.com/400x250" alt="Casa residencial com quintal amplo" loading="lazy">
+        <div class="card-image-wrapper">
+          <span class="badge">Venda</span>
+          <img src="http://googleusercontent.com/image_collection/image_retrieval/17155401375240170481_0" alt="Casa residencial com piscina e quintal amplo" loading="lazy">
+        </div>
         <div class="card-body">
-          <h2>Casa Residencial - Jardim das Flores</h2>
-          <p>Casa ampla com 4 suítes, piscina, espaço pet e edícula nos fundos.</p>
-          <span class="price">R$ 890.000</span>
+          <h3 class="card-title">Casa Residencial - Jardim das Flores</h3>
+          <p class="card-text">Casa ampla com 4 suítes, piscina com iluminação LED, espaço pet, espaço gourmet com churrasqueira e edícula nos fundos.</p>
+          <div class="card-footer">
+            <span class="price">R$ 890.000</span>
+            <a href="#" class="btn-details">Ver Mais</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Imóvel 3 -->
+      <article class="card">
+        <div class="card-image-wrapper">
+          <span class="badge">Destaque</span>
+          <img src="http://googleusercontent.com/image_collection/image_retrieval/6897805450005254654_0" alt="Cobertura duplex com vista panorâmica" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Cobertura Duplex - Alto da XV</h3>
+          <p class="card-text">Cobertura de alto padrão com vista 360°, 4 dormitórios (2 suítes master), hidromassagem, automação residencial e 3 vagas livres.</p>
+          <div class="card-footer">
+            <span class="price">R$ 1.250.000</span>
+            <a href="#" class="btn-details">Ver Mais</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Imóvel 4 -->
+      <article class="card">
+        <div class="card-image-wrapper">
+          <span class="badge">Lançamento</span>
+          <img src="http://googleusercontent.com/image_collection/image_retrieval/11235851245403954579_0" alt="Chácara e refúgio na serra com amplo jardim" loading="lazy">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Chácara e Refúgio - Serra Verde</h3>
+          <p class="card-text">Propriedade exclusiva rodeada pela natureza com pomar, lago privativo, casa sede em estilo rústico moderno e espaço para eventos.</p>
+          <div class="card-footer">
+            <span class="price">R$ 680.000</span>
+            <a href="#" class="btn-details">Ver Mais</a>
+          </div>
         </div>
       </article>
 
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <!-- Script da Troca de Tema -->
+  <script>
+    const themeToggleBtn = document.querySelector('#theme-toggle');
+    const themeIcon = document.querySelector('#theme-icon');
+    const themeText = document.querySelector('#theme-text');
+
+    // Recupera a preferência salva ou detecta a do sistema
+    const savedTheme = localStorage.getItem('theme') || 
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Modo Claro';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Modo Escuro';
+      }
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      applyTheme(newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  </script>
 </body>
 </html>
