@@ -1,36 +1,124 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" 
-    content="width=device-width, initial-scale=1.0">
-    <title>blog</title>
-     <style>
-      link rel=''stylesheet''href=''style.css
-     header{
-       background-color: #e8ebee;
-       color:#000000 ;
-       text-align:center;
-       max-width:800px;;
-     }
-     main{
-      background-color:#ffff ;
-     </style>
-  </head>
-  <body>
-      <header>
-       <h1>meu  blog tech</h1>
-       <p>vou compartilhar conhecimento sobre vendas de imovel</p>
-      </header>
-      </main>
-       <h2>meu primeiro post</h2>
-       <p>por: robert willian souza</p>
-       <p> boas-vindas ao meu novo blog aqui vou compartilhar dicas de 
-        como vender mais rapido </p>
-        
-    </body>
- </html>
- 
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog de Imóveis</title>
+  
+  <style>
+    :root {
+      --bg-color: #f4f6f8;
+      --card-bg: #ffffff;
+      --text-color: #1a1a1a;
+      --accent-color: #0066cc;
+      --border-color: #e0e0e0;
+    }
 
- <header></header>
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --text-color: #e0e0e0;
+      --accent-color: #4d94ff;
+      --border-color: #333333;
+    }
 
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1.25rem;
+    }
+
+    .price {
+      display: inline-block;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--accent-color);
+      margin-top: 1rem;
+    }
+
+    #theme-toggle {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      color: var(--text-color);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="container header-content">
+    <h1>Imóveis em Destaque</h1>
+    <button id="theme-toggle" type="button" aria-label="Alternar tema">Alternar Tema</button>
+  </header>
+
+  <main class="container">
+    <section class="posts-grid">
+
+      <article class="card">
+        <img src="https://via.placeholder.com/400x250" alt="Apartamento moderno com varanda gourmet" loading="lazy">
+        <div class="card-body">
+          <h2>Apartamento 3 Quartos - Centro</h2>
+          <p>Excelente localização, varanda gourmet, 2 vagas na garagem e área de lazer completa.</p>
+          <span class="price">R$ 450.000</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://via.placeholder.com/400x250" alt="Casa residencial com quintal amplo" loading="lazy">
+        <div class="card-body">
+          <h2>Casa Residencial - Jardim das Flores</h2>
+          <p>Casa ampla com 4 suítes, piscina, espaço pet e edícula nos fundos.</p>
+          <span class="price">R$ 890.000</span>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
